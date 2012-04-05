@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean id="handlerMapping"
+		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+		<property name="detectHandlersInAncestorContexts" value="true" />
+		<property name="interceptors">
+			<list>
+				<ref bean="processResponseInterceptor" />
+				<ref bean="accessTokenInterceptor" />
+				<ref bean="signatureInterceptor" />
+			</list>
+		</property>
+	</bean>
+	<bean id="handlerAdapter"
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<qualifier value="handlerAdapter" />
+	</bean>
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean> 
+</beans>
